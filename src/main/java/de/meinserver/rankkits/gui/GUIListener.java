@@ -12,11 +12,7 @@ public class GUIListener implements Listener {
     }
 
     @EventHandler
-    public void onClick(InventoryClickEvent event) {
-
-        if (event.getView().getTitle() == null) {
-            return;
-        }
+    public void onInventoryClick(InventoryClickEvent event) {
 
         if (!event.getView().getTitle().equals(RankGUI.TITLE)) {
             return;
@@ -28,23 +24,37 @@ public class GUIListener implements Listener {
             return;
         }
 
-        if (event.getCurrentItem() == null) {
-            return;
-        }
-
         switch (event.getSlot()) {
 
-            case 10 -> KitService.claimKit(player, "default");
+            case 10 -> {
+                KitService.claimKit(player, "default");
+                player.closeInventory();
+            }
 
-            case 11 -> KitService.claimKit(player, "premium");
+            case 11 -> {
+                KitService.claimKit(player, "premium");
+                player.closeInventory();
+            }
 
-            case 12 -> KitService.claimKit(player, "vip");
+            case 12 -> {
+                KitService.claimKit(player, "vip");
+                player.closeInventory();
+            }
 
-            case 14 -> KitService.claimKit(player, "elite");
+            case 14 -> {
+                KitService.claimKit(player, "elite");
+                player.closeInventory();
+            }
 
-            case 15 -> KitService.claimKit(player, "champion");
+            case 15 -> {
+                KitService.claimKit(player, "champion");
+                player.closeInventory();
+            }
 
-            case 16 -> KitService.claimKit(player, "legend");
+            case 16 -> {
+                KitService.claimKit(player, "legend");
+                player.closeInventory();
+            }
         }
     }
 }
