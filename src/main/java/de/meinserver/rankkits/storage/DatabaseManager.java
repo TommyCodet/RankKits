@@ -1,6 +1,7 @@
 package de.meinserver.rankkits.storage;
 
 import de.meinserver.rankkits.RankKitsPlugin;
+import de.meinserver.rankkits.kits.CooldownManager;
 
 import java.io.File;
 import java.sql.Connection;
@@ -17,27 +18,27 @@ public class DatabaseManager {
 
         try {
 
-            File file = new File(
+            File dbFile = new File(
                     RankKitsPlugin.getInstance().getDataFolder(),
                     "kits.db"
             );
 
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
+            if (!dbFile.getParentFile().exists()) {
+                dbFile.getParentFile().mkdirs();
             }
 
             connection = DriverManager.getConnection(
-                    "jdbc:sqlite:" + file.getAbsolutePath()
+                    "jdbc:sqlite:" + dbFile.getAbsolutePath()
             );
 
             PreparedStatement statement =
                     connection.prepareStatement(
                             """
-                            CREATE TABLE IF NOT EXISTS kit_cooldowns(
-                            uuid TEXT,
-                            kit TEXT,
-                            last_claim BIGINT,
-                            PRIMARY KEY(uuid, kit)
+                            CREATE TABLE IF NOT EXISTS kit_cooldowns (
+                                uuid TEXT NOT NULL,
+                                kit TEXT NOT NULL,
+                                last_claim BIGINT NOT NULL,
+                                PRIMARY KEY(uuid, kit)
                             )
                             """
                     );
@@ -74,12 +75,14 @@ public class DatabaseManager {
 
             if (rs.next()) {
 
-                long lastClaim = rs.getLong("last_claim");
+                long lastClaim =
+                        rs.getLong("last_claim");
+
+                long cooldown =
+                        CooldownManager.getCooldown(kit);
 
                 long now =
                         System.currentTimeMillis() / 1000L;
-
-                long cooldown = 3600L;
 
                 long remaining =
                         cooldown - (now - lastClaim);
@@ -110,8 +113,7 @@ public class DatabaseManager {
             PreparedStatement statement =
                     connection.prepareStatement(
                             """
-                            INSERT OR REPLACE
-                            INTO kit_cooldowns
+                            INSERT OR REPLACE INTO kit_cooldowns
                             (uuid, kit, last_claim)
                             VALUES (?, ?, ?)
                             """
@@ -126,6 +128,21 @@ public class DatabaseManager {
 
             statement.executeUpdate();
             statement.close();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public static void disconnect() {
+
+        try {
+
+            if (connection != null &&
+                    !connection.isClosed()) {
+
+                connection.close();
+            }
 
         } catch (Exception exception) {
             exception.printStackTrace();
