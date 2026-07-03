@@ -1,0 +1,16 @@
+name: RankKits
+version: 1.0.0
+main: de.meinserver.rankkits.RankKitsPlugin
+api-version: '1.21'
+
+depend:
+  - LuckPerms
+
+commands:
+  ranks:
+    description: Öffnet das Rank-Kit Menü
+    usage: /ranks
+
+permissions:
+  rankkits.admin:
+    default: op
