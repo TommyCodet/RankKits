@@ -1,0 +1,29 @@
+kits:
+
+  default:
+    items:
+      - STONE_SWORD:1
+      - BREAD:16
+
+  premium:
+    items:
+      - IRON_SWORD:1
+      - COOKED_BEEF:32
+
+  vip:
+    items:
+      - DIAMOND_SWORD:1
+      - GOLDEN_APPLE:5
+
+  elite:
+    items:
+      - NETHERITE_HELMET:1
+
+  champion:
+    items:
+      - NETHERITE_CHESTPLATE:1
+
+  legend:
+    items:
+      - NETHERITE_SWORD:1
+      - ENCHANTED_GOLDEN_APPLE:2
