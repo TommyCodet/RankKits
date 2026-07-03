@@ -1,11 +1,10 @@
 package de.meinserver.rankkits.gui;
 
+import de.meinserver.rankkits.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
@@ -15,85 +14,95 @@ public class RankGUI {
 
     public static void open(Player player) {
 
-        Inventory inv = Bukkit.createInventory(null, 27, TITLE);
+        Inventory inv = Bukkit.createInventory(
+                null,
+                27,
+                TITLE
+        );
 
-        inv.setItem(10, createItem(
-                Material.GRAY_STAINED_GLASS_PANE,
-                "§7Default Kit",
-                List.of(
-                        "§7Immer verfügbar",
-                        "",
-                        "§aKlicken zum Abholen"
-                )
-        ));
+        for (int i = 0; i < 27; i++) {
 
-        inv.setItem(11, createItem(
-                Material.GOLD_INGOT,
-                "§ePremium Kit",
-                List.of(
-                        "§71 Stunde Cooldown",
-                        "",
-                        "§aKlicken zum Abholen"
-                )
-        ));
-
-        inv.setItem(12, createItem(
-                Material.DIAMOND,
-                "§bVIP Kit",
-                List.of(
-                        "§71 Stunde Cooldown",
-                        "",
-                        "§aKlicken zum Abholen"
-                )
-        ));
-
-        inv.setItem(14, createItem(
-                Material.AMETHYST_SHARD,
-                "§5Elite Kit",
-                List.of(
-                        "§71 Stunde Cooldown",
-                        "",
-                        "§aKlicken zum Abholen"
-                )
-        ));
-
-        inv.setItem(15, createItem(
-                Material.TOTEM_OF_UNDYING,
-                "§6Champion Kit",
-                List.of(
-                        "§71 Stunde Cooldown",
-                        "",
-                        "§aKlicken zum Abholen"
-                )
-        ));
-
-        inv.setItem(16, createItem(
-                Material.NETHER_STAR,
-                "§6§lLegend Kit",
-                List.of(
-                        "§71 Stunde Cooldown",
-                        "",
-                        "§aKlicken zum Abholen"
-                )
-        ));
-
-        player.openInventory(inv);
-    }
-
-    private static ItemStack createItem(Material material,
-                                        String name,
-                                        List<String> lore) {
-
-        ItemStack item = new ItemStack(material);
-
-        ItemMeta meta = item.getItemMeta();
-
-        if (meta != null) {
-            meta.setDisplayName(name);
-            meta.setLore(lore);
-            item.setItemMeta(meta);
+            inv.setItem(
+                    i,
+                    new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE)
+                            .name(" ")
+                            .build()
+            );
         }
 
-        return item;
+        inv.setItem(
+                10,
+                new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
+                        .name("§7Default")
+                        .lore(List.of(
+                                "§7Standard Kit",
+                                "",
+                                "§aKlicken zum Abholen"
+                        ))
+                        .build()
+        );
+
+        inv.setItem(
+                11,
+                new ItemBuilder(Material.GOLD_INGOT)
+                        .name("§ePremium")
+                        .lore(List.of(
+                                "§71 Stunde Cooldown",
+                                "",
+                                "§aKlicken zum Abholen"
+                        ))
+                        .build()
+        );
+
+        inv.setItem(
+                12,
+                new ItemBuilder(Material.DIAMOND)
+                        .name("§bVIP")
+                        .lore(List.of(
+                                "§71 Stunde Cooldown",
+                                "",
+                                "§aKlicken zum Abholen"
+                        ))
+                        .build()
+        );
+
+        inv.setItem(
+                14,
+                new ItemBuilder(Material.AMETHYST_SHARD)
+                        .name("§5Elite")
+                        .lore(List.of(
+                                "§71 Stunde Cooldown",
+                                "",
+                                "§aKlicken zum Abholen"
+                        ))
+                        .build()
+        );
+
+        inv.setItem(
+                15,
+                new ItemBuilder(Material.GOLD_BLOCK)
+                        .name("§6Champion")
+                        .lore(List.of(
+                                "§71 Stunde Cooldown",
+                                "",
+                                "§aKlicken zum Abholen"
+                        ))
+                        .build()
+        );
+
+        inv.setItem(
+                16,
+                new ItemBuilder(Material.NETHER_STAR)
+                        .name("§6§lLegend")
+                        .lore(List.of(
+                                "§x§F§F§A§A§0§0Gold-Orange Rang",
+                                "§71 Stunde Cooldown",
+                                "",
+                                "§aKlicken zum Abholen"
+                        ))
+                        .build()
+        );
+
+        player.openInventory(inv);
     }
 }
