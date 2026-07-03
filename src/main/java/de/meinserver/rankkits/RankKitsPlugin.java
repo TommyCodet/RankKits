@@ -3,6 +3,7 @@ package de.meinserver.rankkits;
 import de.meinserver.rankkits.commands.RanksCommand;
 import de.meinserver.rankkits.gui.GUIListener;
 import de.meinserver.rankkits.hooks.LuckPermsHook;
+import de.meinserver.rankkits.kits.KitManager;
 import de.meinserver.rankkits.storage.DatabaseManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,10 +18,13 @@ public class RankKitsPlugin extends JavaPlugin {
         instance = this;
 
         saveDefaultConfig();
+        saveResource("kits.yml", false);
+        saveResource("messages.yml", false);
 
         this.luckPermsHook = new LuckPermsHook();
 
         DatabaseManager.connect();
+        KitManager.load();
 
         if (getCommand("ranks") != null) {
             getCommand("ranks").setExecutor(new RanksCommand(this));
@@ -36,7 +40,6 @@ public class RankKitsPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
         getLogger().info("RankKits deaktiviert.");
     }
 
