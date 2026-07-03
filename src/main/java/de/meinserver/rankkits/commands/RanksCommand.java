@@ -12,10 +12,12 @@ public class RanksCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender,
-                             Command command,
-                             String label,
-                             String[] args) {
+    public boolean onCommand(
+            CommandSender sender,
+            Command command,
+            String label,
+            String[] args
+    ) {
 
         if (!(sender instanceof Player player)) {
             sender.sendMessage("Nur Spieler können diesen Befehl nutzen.");
@@ -23,7 +25,6 @@ public class RanksCommand implements CommandExecutor {
         }
 
         RankGUI.open(player);
-
         return true;
     }
 }
