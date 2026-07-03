@@ -1,0 +1,11 @@
+gui:
+  title: "&8Rank Kits"
+  size: 27
+
+cooldown:
+  default: 0
+  premium: 3600
+  vip: 3600
+  elite: 3600
+  champion: 3600
+  legend: 3600
